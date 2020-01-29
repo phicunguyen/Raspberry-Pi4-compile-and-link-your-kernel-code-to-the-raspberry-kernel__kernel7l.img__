@@ -8,22 +8,23 @@ I'm using Ubuntu to cross compile the raspberry pi, both linux and tool are on m
     Please follow this document to clone the raspberry pi on your machine
         
         https://www.raspberrypi.org/documentation/linux/kernel/building.md
-        
+     
+
+The linux and tools as my root directory.
+
       /home/sitara/linux
       /home/sitara/tools
       
 I created a directory under /linux/drivers call hello_gpio5
 
-      sitara@ubuntu:~/linux/drivers/hello_gpio5$
+        sitara@ubuntu:~/linux/drivers$ mkdir hello_gpio5
+        sitara@ubuntu:~/linux/drivers/hello_gpio5$
       
 It contains a c and make file.        
       sitara@ubuntu:~/linux/drivers/hello_gpio5$ ls
       hello_gpio5.c  Makefile
       
- The code for hello_gpio5.c is shown below.
- 
- First, it requests a gpio5, then set the direction to be output and set the value to 1. 
-   
+ The code for hello_gpio5.c is shown below. 
     (I'm not using device tree and using the legacy gpio.)
 
           #include <linux/init.h>
@@ -53,14 +54,17 @@ It contains a c and make file.
           MODULE_AUTHOR("gpio5");
           MODULE_DESCRIPTION("gpio5 example");
           MODULE_LICENSE("GPL"); 
+ 
+ First, it requests a gpio5, then set the direction to be output and set the value to 1. 
+  
 
 And the Makefile           
     
     obj-y			+= hello_gpio5.o       
     
-The next step is add your direction to the drivers Makefile.
+The next step is add your hello_gpio5 to the drivers Makefile.
 
-Add the lines below to the /linux/drivers/Makefile.
+Add the lines below to the /linux/drivers/Makefile at the end of the Makefile.
 
     obj-y                           += hello_gpio5/
 
