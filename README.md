@@ -25,7 +25,7 @@ It contains a c and make file.
       hello_gpio5.c  Makefile
       
  The code for hello_gpio5.c is shown below. 
-    (I'm not using device tree and using the legacy gpio.)
+    (I'm not using device tree and I'm using the legacy gpio just for demo purpose)
 
           #include <linux/init.h>
           #include <linux/module.h>
@@ -79,14 +79,14 @@ Tell where all the tool resides by export it (copy and run the two export on you
     export CCPREFIX=~/tools/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/arm-bcm2708-linux-gnueabi-  
     export KERNEL_SRC=~linux
  
-Run the below on your ubuntu. it will take couple hour.
+Run the below commands on your ubuntu. it will take couple hours.
 
     KERNEL=kernel7l
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2711_defconfig
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
     ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=./modules make modules_install
 
-Wait for it done then generate the kernel7l.img.
+Wait for it done then run the command below to generate the kernel7l.img.
 
     ./scripts/mkknlimg arch/arm/boot/zImage kernel7l.img   
     
@@ -99,12 +99,12 @@ I see the kernel7l.img on my raspberry pi as shown below.
     pi@raspberrypi:~ $ ls kernel7l.img 
     kernel7l.img
     
-Now copy kernel7l.img it to /boot. (make sure save your kernel7l.img to kernel7l.img.save before run this command).
+Now copy kernel7l.img to /boot. (make sure save your kernel7l.img to kernel7l.img.save before run this command).
     
     pi@raspberrypi:~ $ sudo cp kernel7l.img /boot
     pi@raspberrypi:~ $ sudo reboot
 
-Wait for it reboot then use dmesg and look for 'hello_gpio_init'
+Wait for it reboot then use dmesg and look for 'hello_gpio5_init'
 
     [    0.384307] [vc_sm_connected_init]: end - returning 0
     [    0.385132] hello_gpio5_init
