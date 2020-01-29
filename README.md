@@ -68,3 +68,49 @@ Add the lines below to the /linux/drivers/Makefile at the end of the Makefile.
 
     obj-y                           += hello_gpio5/
 
+To compile the code, go to linux directory.
+    
+    sitara@ubuntu:~$ cd linux/
+    sitara@ubuntu:~/linux$ pwd
+    /home/sitara/linux
+ 
+Tell where all the tool resides by export it (copy and run the two export on your ubuntu)
+ 
+    export CCPREFIX=~/tools/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/arm-bcm2708-linux-gnueabi-  
+    export KERNEL_SRC=~linux
+ 
+Run the below on your ubuntu. it will take couple hour.
+
+    KERNEL=kernel7l
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2711_defconfig
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
+    ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=./modules make modules_install
+
+Wait for it done then generate the kernel7l.img.
+
+    ./scripts/mkknlimg arch/arm/boot/zImage kernel7l.img   
+    
+Now copy the kernel7l.img to your raspberry pi from your ubuntu. Your IP address might not be the same.
+
+    scp kernel7l.img pi:10.1.10.77:
+    
+I see the kernel7l.img on my raspberry pi as shown below.    
+    
+    pi@raspberrypi:~ $ ls kernel7l.img 
+    kernel7l.img
+    
+Now copy kernel7l.img it to /boot. (make sure save your kernel7l.img to kernel7l.img.save before run this command).
+    
+    pi@raspberrypi:~ $ sudo cp kernel7l.img /boot
+    pi@raspberrypi:~ $ sudo reboot
+
+Wait for it reboot then use dmesg and look for 'hello_gpio_init'
+
+    [    0.384307] [vc_sm_connected_init]: end - returning 0
+    [    0.385132] hello_gpio5_init
+    [    0.385444] Initializing XFRM netlink socket
+    
+Wow, too many steps.
+
+Have fun.
+    
