@@ -1,5 +1,5 @@
 # Raspberry-Pi4-compile-and-link-your-kernel-code-to-the-raspberry-kernel__kernel7l.img__
-This is here for me as reference and hope will help some one want to run their code in the raspberry pi kernel.
+This is here for me as reference and hope will help someone want to run their code in the raspberry pi kernel.
 
 Let say I want the kernel to set gpio5 (pin 29 on the raspberry pi 4) to 1 when it bootup. (if you connect a led on gpio5, it will light up).
 
@@ -56,4 +56,11 @@ It contains a c and make file.
 
 And the Makefile           
     
-    obj-y			+= hello_gpio5.o          
+    obj-y			+= hello_gpio5.o       
+    
+The next step is add your direction to the drivers Makefile.
+
+Add the lines below to the /linux/drivers/Makefile.
+
+    obj-y                           += hello_gpio5/
+
