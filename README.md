@@ -10,7 +10,7 @@ I'm using Ubuntu to cross compile the raspberry pi, both linux and tool are on m
         https://www.raspberrypi.org/documentation/linux/kernel/building.md
      
 
-The linux and tools as my root directory.
+The linux and tools are on my root directory.
 
       /home/sitara/linux
       /home/sitara/tools
